@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Snake from './snake/Snake';
+import s from './App.module.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+  const [name, setName] = useState('');
+  const [isAuth, setAuth] = useState(false);
+
+  return isAuth ?
+    (
+      <div className={s.App}>
+        <div className={s.header}>
+          <h1>Welcome {name}</h1>
+          <button
+            className={s.btn}
+            onClick={() => setAuth(!isAuth)}
+          >
+            Exit
+          </button>
+        </div>
+        <Snake
+          color1="#008000"
+          color2="#ff0000"
+          backgroundColor="#ebebeb"
+        />
+      </div>
+    ) :
+    (
+      <div className={s.register}>
+        <label>
+          <input
+            className={s.input}
+            type="text"
+            onChange={e => setName(e.target.value)}
+          />
+        </label>
+        <button
+          className={s.btn}
+          onClick={() => setAuth(!isAuth)}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Enter
+        </button>
+      </div>
+    )
 }
 
 export default App;
